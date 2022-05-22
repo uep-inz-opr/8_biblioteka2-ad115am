@@ -15,18 +15,18 @@ if __name__ == "__main__":
 def wybor_funkcji():
     ilosc = int(input())
     for row in range(ilosc):
-        egz = input('bez tego nie zadziala xd: ')
+        egz = input('')
         wejscie_tupla = eval(egz)
         funkcja = wejscie_tupla[0]
-        print(wejscie_tupla[0])
+        #print(wejscie_tupla[0])
         if funkcja==" dodaj ":
-            print('wybrano funkcje dodaj')
+            #print('wybrano funkcje dodaj')
             dodaj(wejscie_tupla[1:])
         if funkcja==" wypozycz ":
-            print('wybrano funkcje wypozycz')
+            #print('wybrano funkcje wypozycz')
             wypozycz(wejscie_tupla[1:])
         if funkcja==" oddaj ":
-            print('wybrano funkcje oddaj')
+            #print('wybrano funkcje oddaj')
             oddaj(wejscie_tupla[1:])
 
 
@@ -68,22 +68,22 @@ def wypozycz(podany_input):
     query_czy_ksiazka_dostepna1 = f"select count(tytul) from ksiazki where tytul='{tytul_do_sql}'"
     cursor.execute(query_czy_ksiazka_dostepna1)
     czy_ksiazka_dostepna1 = cursor.fetchone()[0]
-    print(f"czy ksiazka dostepna {tytul_do_sql}: {czy_ksiazka_dostepna1}")
+    #print(f"czy ksiazka dostepna {tytul_do_sql}: {czy_ksiazka_dostepna1}")
     if czy_ksiazka_dostepna1>0:
 
         #czy_jest_w_bazie = 0
         query_czy_jest_w_bazie = f"select count(*) from czytelnicy where imie_nazwisko='{czytelnik}'"
         cursor.execute(query_czy_jest_w_bazie)
         czy_jest_w_bazie=cursor.fetchone()
-        print(czy_jest_w_bazie)
+        #print(czy_jest_w_bazie)
         if czy_jest_w_bazie[0]==0:
-            print('uzytkownik nie znajduje sie w bazie')
+            #print('uzytkownik nie znajduje sie w bazie')
             query_dodawanie_czytelnika = f"INSERT INTO czytelnicy(imie_nazwisko,ksiazka) VALUES('{czytelnik}','{tytul_do_sql}')"
             cursor.execute(query_dodawanie_czytelnika)
             query_wyswietl_calosc_czytelnicy = f"select * from czytelnicy"
             cursor.execute(query_wyswietl_calosc_czytelnicy)
             calosc_czytelnicy = cursor.fetchall()
-            print(f"calosc czytelnicy: {calosc_czytelnicy}")
+            #print(f"calosc czytelnicy: {calosc_czytelnicy}")
             query_zwiekszanie_liczby_ksiazek = f"UPDATE czytelnicy SET liczba_ksiazek = liczba_ksiazek +1 WHERE imie_nazwisko = '{czytelnik}'"
             cursor.execute(query_zwiekszanie_liczby_ksiazek)
             print('True')
@@ -93,17 +93,17 @@ def wypozycz(podany_input):
             query_liczba_ksiazek_ogolem = f"select count(liczba_ksiazek) from czytelnicy where imie_nazwisko='{czytelnik}'"
             cursor.execute(query_liczba_ksiazek_ogolem)
             liczba_ksiazek=cursor.fetchone()[0]
-            print(f"liczba_ksiazek = {liczba_ksiazek}")
+            #print(f"liczba_ksiazek = {liczba_ksiazek}")
 
             query_liczba_konkretnej_ksiazki_ogolem = f"select count(ksiazka) from czytelnicy where imie_nazwisko='{czytelnik}'and ksiazka='{tytul_do_sql}'"
             cursor.execute(query_liczba_konkretnej_ksiazki_ogolem)
             liczba_konkretnej_ksiazki = cursor.fetchone()[0]
-            print(f"liczba_konkretnej_ksiazki = {liczba_konkretnej_ksiazki}")
+            #print(f"liczba_konkretnej_ksiazki = {liczba_konkretnej_ksiazki}")
 
             query_czy_ksiazka_dostepna = f"select count(tytul) from ksiazki where tytul='{tytul_do_sql}'"
             cursor.execute(query_czy_ksiazka_dostepna)
             czy_ksiazka_dostepna=cursor.fetchone()[0]
-            print(f"czy ksiazka dostepna {tytul_do_sql}: {czy_ksiazka_dostepna}")
+            #print(f"czy ksiazka dostepna {tytul_do_sql}: {czy_ksiazka_dostepna}")
 
             #wyswietl_czytelnikow()
             #print('wypozycz tytul do sql: '+tytul_do_sql)
@@ -112,7 +112,7 @@ def wypozycz(podany_input):
                 print('False')
 
             elif liczba_konkretnej_ksiazki >0:
-                print("False bo liczba konkretnej")
+                print("False")
 
             else:
                 query = f"DELETE FROM ksiazki WHERE tytul IN (select tytul from ksiazki where tytul='{tytul_do_sql}'  LIMIT 1)"
@@ -122,7 +122,7 @@ def wypozycz(podany_input):
                 cursor.execute(query2)
                 print('True')
     else:
-        print("False od razu bo tej ksiazki nie ma")
+        print("False")
 
 
 def oddaj(podany_input):
@@ -131,7 +131,7 @@ def oddaj(podany_input):
     query_czytelnik_posiada_taka_ksiazke = f"select count(ksiazka) from czytelnicy where imie_nazwisko='{czytelnik}' and ksiazka='{tytul_do_sql}'"
     cursor.execute(query_czytelnik_posiada_taka_ksiazke)
     czy_czytelnik_posiada_taka_ksiazke = cursor.fetchone()[0]
-    print(f"czy czytelnik posiada taka ksiazke{czytelnik}: {tytul_do_sql}: {czy_czytelnik_posiada_taka_ksiazke}")
+    #print(f"czy czytelnik posiada taka ksiazke{czytelnik}: {tytul_do_sql}: {czy_czytelnik_posiada_taka_ksiazke}")
     if czy_czytelnik_posiada_taka_ksiazke>0:
         query3 = f"INSERT INTO ksiazki(tytul) VALUES('{tytul_do_sql}')"
         cursor.execute(query3)
@@ -148,24 +148,24 @@ query_count = f"select tytul, autor, count(tytul) from ksiazki group by tytul or
 cursor.execute(query_count)
 result_count = cursor.fetchall()
 
-for row in result_count:
-    print(row)
-#print('koniec funkcji dodaj -----------------------------------------')
-
-#wybor_funkcji()
-
-query_count2= f"select tytul, autor, count(tytul) from ksiazki group by tytul order by tytul"
-cursor.execute(query_count2)
-result_count2 = cursor.fetchall()
-for row in result_count2:
-    print(row)
-def wyswietl_czytelnikow():
-    query_wyswietl_czytelnikow = f"select * from czytelnicy"
-    cursor.execute(query_wyswietl_czytelnikow)
-    print("CZTELNICY: ")
-    print(cursor.fetchall())
-
-wyswietl_czytelnikow()
+# for row in result_count:
+#     print(row)
+# #print('koniec funkcji dodaj -----------------------------------------')
+#
+# #wybor_funkcji()
+#
+# query_count2= f"select tytul, autor, count(tytul) from ksiazki group by tytul order by tytul"
+# cursor.execute(query_count2)
+# result_count2 = cursor.fetchall()
+# for row in result_count2:
+#     print(row)
+# def wyswietl_czytelnikow():
+#     query_wyswietl_czytelnikow = f"select * from czytelnicy"
+#     cursor.execute(query_wyswietl_czytelnikow)
+#     print("CZTELNICY: ")
+#     print(cursor.fetchall())
+#
+# wyswietl_czytelnikow()
 
 
 
