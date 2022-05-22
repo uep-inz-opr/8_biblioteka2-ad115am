@@ -15,7 +15,7 @@ if __name__ == "__main__":
 def wybor_funkcji():
     ilosc = int(input())
     for row in range(ilosc):
-        egz = input('')
+        egz = input()
         wejscie_tupla = eval(egz)
         funkcja = wejscie_tupla[0]
         #print(wejscie_tupla[0])
