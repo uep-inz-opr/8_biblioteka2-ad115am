@@ -1,5 +1,5 @@
 import sqlite3
-
+output=[]
 if __name__ == "__main__":
 
     sqlite_con = sqlite3.connect(":memory:")
@@ -14,7 +14,8 @@ if __name__ == "__main__":
                           ;''')
 def wybor_funkcji():
     ilosc = int(input())
-    for row in range(ilosc):
+
+    for egz in range(ilosc):
         egz = input()
         wejscie_tupla = eval(egz)
         funkcja = wejscie_tupla[0]
@@ -59,7 +60,8 @@ def dodaj(podany_input):
         # rok_do_sql = tupla[2]
         query = f"INSERT INTO ksiazki(tytul,autor,rok) VALUES('{tytul_do_sql}','{autor_do_sql}',{rok_do_sql})"
         cursor.execute(query)
-        print('True')
+        output.append('True')
+        #print('True')
 
 #zbior_czytelnikow=set()
 def wypozycz(podany_input):
@@ -86,7 +88,8 @@ def wypozycz(podany_input):
             #print(f"calosc czytelnicy: {calosc_czytelnicy}")
             query_zwiekszanie_liczby_ksiazek = f"UPDATE czytelnicy SET liczba_ksiazek = liczba_ksiazek +1 WHERE imie_nazwisko = '{czytelnik}'"
             cursor.execute(query_zwiekszanie_liczby_ksiazek)
-            print('True')
+            output.append('True')
+            #print('True')
         else:
             #trzeba teraz sprawdzic ile ten czytelnik ma ksiazek wypozyczonych ogolnie i ile tej konkretnej
             #query_sprawdzenie_liczby_ksiazek =
@@ -109,10 +112,12 @@ def wypozycz(podany_input):
             #print('wypozycz tytul do sql: '+tytul_do_sql)
             limit_ksiazek = 3
             if liczba_ksiazek>limit_ksiazek:
-                print('False')
+                output.append('False')
+                #print('False')
 
             elif liczba_konkretnej_ksiazki >0:
-                print("False")
+                output.append('False')
+                #print("False")
 
             else:
                 query = f"DELETE FROM ksiazki WHERE tytul IN (select tytul from ksiazki where tytul='{tytul_do_sql}'  LIMIT 1)"
@@ -120,9 +125,11 @@ def wypozycz(podany_input):
                 cursor.execute(query)
                 query2 = f"INSERT INTO czytelnicy(imie_nazwisko,ksiazka) VALUES('{czytelnik}','{tytul_do_sql}')"
                 cursor.execute(query2)
-                print('True')
+                output.append('True')
+                #print('True')
     else:
-        print("False")
+        output.append('False')
+        #print("False")
 
 
 def oddaj(podany_input):
@@ -137,9 +144,11 @@ def oddaj(podany_input):
         cursor.execute(query3)
         query4=f"DELETE FROM czytelnicy WHERE imie_nazwisko='{czytelnik}' and ksiazka='{tytul_do_sql}'"
         cursor.execute(query4)
-        print('True')
+        output.append('True')
+        #print('True')
     else:
-        print('False')
+        output.append('False')
+        #print('False')
 
 
 wybor_funkcji()
@@ -166,6 +175,8 @@ result_count = cursor.fetchall()
 #     print(cursor.fetchall())
 #
 # wyswietl_czytelnikow()
+for x in output:
+    print(x)
 
 
 
