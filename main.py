@@ -4,10 +4,10 @@ output = []
 
 
 def wybor_funkcji():
-    ilosc = int(input('ilosc'))
+    ilosc = int(input())
 
     for egz in range(ilosc):
-        egz = input('essa')
+        egz = input()
         wejscie_tupla = eval(egz)
         funkcja = wejscie_tupla[0]
         # print(wejscie_tupla[0])
