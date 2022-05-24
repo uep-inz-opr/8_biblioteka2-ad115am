@@ -1,17 +1,6 @@
 import sqlite3
 output=[]
-if __name__ == "__main__":
 
-    sqlite_con = sqlite3.connect(":memory:")
-    cursor = sqlite_con.cursor()
-    cursor.execute('''CREATE TABLE ksiazki (tytul data_type STRING, 
-                          autor data_type STRING,  
-                          rok data_type INTEGER
-                          );''')
-    cursor.execute('''CREATE TABLE czytelnicy (imie_nazwisko data_type STRING, 
-                          ksiazka data_type STRING,
-                          liczba_ksiazek INT UNSIGNED DEFAULT 0)
-                          ;''')
 def wybor_funkcji():
     ilosc = int(input())
 
@@ -19,12 +8,24 @@ def wybor_funkcji():
         egz = input()
         wejscie_tupla = eval(egz)
         funkcja = wejscie_tupla[0]
+<<<<<<< HEAD
 
         if funkcja==" dodaj ":
             dodaj(wejscie_tupla[1:])
         if funkcja==" wypozycz ":
             wypozycz(wejscie_tupla[1:])
         if funkcja==" oddaj ":
+=======
+        #print(wejscie_tupla[0])
+        if funkcja=="dodaj":
+            #print('wybrano funkcje dodaj')
+            dodaj(wejscie_tupla[1:])
+        if funkcja=="wypozycz":
+            #print('wybrano funkcje wypozycz')
+            wypozycz(wejscie_tupla[1:])
+        if funkcja=="oddaj":
+            #print('wybrano funkcje oddaj')
+>>>>>>> 4093855aafcb25f7a25cc255df576b5282af07fd
             oddaj(wejscie_tupla[1:])
 
 
@@ -125,7 +126,20 @@ def oddaj(podany_input):
     else:
         output.append('False')
         #print('False')
+        
+if __name__ == "__main__":
+    sqlite_con = sqlite3.connect(":memory:")
+    cursor = sqlite_con.cursor()
+    cursor.execute('''CREATE TABLE ksiazki (tytul data_type STRING, 
+                          autor data_type STRING,  
+                          rok data_type INTEGER
+                          );''')
+    cursor.execute('''CREATE TABLE czytelnicy (imie_nazwisko data_type STRING, 
+                          ksiazka data_type STRING,
+                          liczba_ksiazek INT UNSIGNED DEFAULT 0)
+                          ;''')
 
+<<<<<<< HEAD
 
 wybor_funkcji()
 
@@ -136,6 +150,34 @@ result_count = cursor.fetchall()
 
 for x in output:
     print(x)
+=======
+    wybor_funkcji()
+
+    query_count = f"select tytul, autor, count(tytul) from ksiazki group by tytul order by tytul"
+    cursor.execute(query_count)
+    result_count = cursor.fetchall()
+
+    # for row in result_count:
+    #     print(row)
+    # #print('koniec funkcji dodaj -----------------------------------------')
+    #
+    # #wybor_funkcji()
+    #
+    # query_count2= f"select tytul, autor, count(tytul) from ksiazki group by tytul order by tytul"
+    # cursor.execute(query_count2)
+    # result_count2 = cursor.fetchall()
+    # for row in result_count2:
+    #     print(row)
+    # def wyswietl_czytelnikow():
+    #     query_wyswietl_czytelnikow = f"select * from czytelnicy"
+    #     cursor.execute(query_wyswietl_czytelnikow)
+    #     print("CZTELNICY: ")
+    #     print(cursor.fetchall())
+    #
+    # wyswietl_czytelnikow()
+    for x in output:
+        print(x)
+>>>>>>> 4093855aafcb25f7a25cc255df576b5282af07fd
 
 
 
