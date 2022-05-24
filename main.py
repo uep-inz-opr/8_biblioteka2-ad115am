@@ -4,10 +4,10 @@ output = []
 
 
 def wybor_funkcji():
-    ilosc = int(input())
+    ilosc = int(input('ilosc'))
 
     for egz in range(ilosc):
-        egz = input()
+        egz = input('essa')
         wejscie_tupla = eval(egz)
         funkcja = wejscie_tupla[0]
         # print(wejscie_tupla[0])
@@ -83,8 +83,8 @@ def wypozycz(podany_input):
             query_zwiekszanie_liczby_ksiazek = f"UPDATE czytelnicy SET liczba_ksiazek = liczba_ksiazek +1 WHERE imie_nazwisko = '{czytelnik}'"
             cursor.execute(query_zwiekszanie_liczby_ksiazek)
             #usunac z listy ksiazek
-            query = f"DELETE FROM ksiazki WHERE tytul IN (select tytul from ksiazki where tytul='{tytul_do_sql}'  LIMIT 1)"
-            # query=f"DELETE FROM ksiazki WHERE tytul='{tytul_do_sql}'"
+           # TO JEST GIT JAK COŚ query = f"DELETE FROM ksiazki WHERE tytul IN (select tytul from ksiazki where tytul='{tytul_do_sql}' LIMIT 1)"
+            query=f"DELETE FROM ksiazki WHERE tytul='{tytul_do_sql}' limit 1"
             cursor.execute(query)
             output.append('True')
             # print('True')
